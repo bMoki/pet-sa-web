@@ -8,12 +8,22 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { pets } from "~/data/pets";
+import { LoaderFunction, json } from "@remix-run/node";
+import { fetchPets } from "~/mockServer/mockApi";
+import { Pet } from "~/entities/pet";
+import { useLoaderData } from "@remix-run/react";
 
 const options = ["ALL", "DOG", "CAT"] as const
 
 const FormSchema = z.object({
   option: z.enum(options)
 })
+
+export let loader: LoaderFunction = async () => {
+  let pets: Pet[] = await fetchPets();
+  return json(pets);
+};
 
 export default function Search() {
 
@@ -27,6 +37,8 @@ export default function Search() {
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data)
   }
+
+  let pets = useLoaderData<Pet[]>();
   return (
     <div className="flex">
       <aside className="w-96 bg-tertiary  min-h-screen max-h-screen">
@@ -39,7 +51,7 @@ export default function Search() {
           <FilterForm />
         </div>
       </aside>
-      <main className="w-full  bg-red-50 p-6 pe-28">
+      <main className="w-full  bg-red-50 p-6 pe-28 max-h-screen overflow-y-scroll">
         <div className="flex justify-between items-center mb-6 mt-40">
           <h1 className="text-xl font-sans">
             Encontre <span className="font-bold font-sans">324 amigos</span> na sua cidade
@@ -74,17 +86,17 @@ export default function Search() {
           </Form>
         </div>
         <div className="flex gap-4 flex-wrap">
-          {["Alfredo", "Juscelino", "Get\u00FAlio", "Juscelino", "Get\u00FAlio", "Alfredo"].map((name, idx) => (
-            <Card key={idx} className="rounded-3xl w-72">
-              <div className="w-full h-32 bg-gray-200 flex items-center justify-center  rounded-3xl">
-                <img src="/placeholder.svg" alt={name} />
+          {pets.map((pet) => (
+            <Card key={pet.id} className="rounded-3xl w-72 flex flex-col group hover:cursor-pointer ">
+              <div className="w-full max-h-48  rounded-3xl overflow-hidden">
+                <img
+                  src={pet.photos.at(0)?.url}
+                  alt={pet.name}
+                  className="object-cover max-h-48 w-full rounded-2xl group-hover:scale-110 ease-in duration-300"
+                />
               </div>
-              {/* <div className="absolute top-2 left-2">
-                <HeartIcon className="h-6 w-6 text-red-500" />
-              </div> */}
               <div className="p-4 text-center flex items-center flex-col">
-                <HeartIcon className="h-6 w-6 text-red-500 -mt-7" />
-                <h2 className="font-bold">{name}</h2>
+                <h2 className="font-bold">{pet.name}</h2>
               </div>
             </Card>
           ))}

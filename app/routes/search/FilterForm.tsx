@@ -6,12 +6,7 @@ import {
   FormField, FormItem, FormLabel, FormMessage
 } from "~/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
-
-const stages = ["PUPPY", "YOUTH", "ADULT", "MIDDLE_AGED", "SENIOR"] as const
-const sizes = ["SMALL", "AVERAGE", "BIG"] as const
-const energy = ["VERY_LOW", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] as const
-const independenceLevel = ["LOW", "AVERAGE", "HIGH"] as const
-
+import { energy, independenceLevel, sizes, stages } from "~/entities/enums"
 
 const FormSchema = z.object({
   stage: z.enum(stages),
