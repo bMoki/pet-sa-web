@@ -6,22 +6,25 @@ import {
   FormField, FormItem, FormLabel, FormMessage
 } from "~/components/ui/form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
-import { energy, independenceLevel, sizes, stages } from "~/entities/enums"
+import { Energy, energy, energySchema } from "~/entities/energy"
+import { IndependenceLevel, independenceLevel, independenceLevelSchema } from "~/entities/independenceLevel"
+import { Size, sizeSchema, sizes } from "~/entities/size"
+import { Stage, stageSchema, stages } from "~/entities/stage"
 
 const FormSchema = z.object({
-  stage: z.enum(stages),
-  energy: z.enum(energy),
-  sizes: z.enum(sizes),
-  independenceLevel: z.enum(independenceLevel)
+  stage: z.enum([...stages, "ALL"]),
+  energy: z.enum([...energy, "ALL"]),
+  sizes: z.enum([...sizes, "ALL"]),
+  independenceLevel: z.enum([...independenceLevel, "ALL"])
 })
 
 export function FilterForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     defaultValues: {
-      energy: "MEDIUM",
-      independenceLevel: "AVERAGE",
-      sizes: "AVERAGE",
-      stage: "YOUTH"
+      energy: "ALL",
+      independenceLevel: "ALL",
+      sizes: "ALL",
+      stage: "ALL"
     },
     resolver: zodResolver(FormSchema),
   })
@@ -50,8 +53,9 @@ export function FilterForm() {
                 <SelectContent
                   className="bg-tertiary text-white font-sans text-xl font-bold"
                 >
+                  <SelectItem className="focus:bg-tertiary-accent focus:text-white" value={"ALL"}>Todos</SelectItem>
                   {stages.map(stage => (
-                    <SelectItem key={stage} className="focus:bg-tertiary-accent focus:text-white" value={stage}>{stage}</SelectItem>
+                    <SelectItem key={stage} className="focus:bg-tertiary-accent focus:text-white" value={stage}>{Stage[stage].name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -77,8 +81,9 @@ export function FilterForm() {
                 <SelectContent
                   className="bg-tertiary text-white font-sans text-xl font-bold"
                 >
+                  <SelectItem className="focus:bg-tertiary-accent focus:text-white" value={"ALL"}>Todos</SelectItem>
                   {energy.map(energy => (
-                    <SelectItem key={energy} className="focus:bg-tertiary-accent focus:text-white" value={energy}>{energy}</SelectItem>
+                    <SelectItem key={energy} className="focus:bg-tertiary-accent focus:text-white" value={energy}>{Energy[energy].name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -104,8 +109,9 @@ export function FilterForm() {
                 <SelectContent
                   className="bg-tertiary text-white font-sans text-xl font-bold"
                 >
+                  <SelectItem className="focus:bg-tertiary-accent focus:text-white" value={"ALL"}>Todos</SelectItem>
                   {sizes.map(size => (
-                    <SelectItem key={size} className="focus:bg-tertiary-accent focus:text-white" value={size}>{size}</SelectItem>
+                    <SelectItem key={size} className="focus:bg-tertiary-accent focus:text-white" value={size}>{Size[size].name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -131,8 +137,9 @@ export function FilterForm() {
                 <SelectContent
                   className="bg-tertiary text-white font-sans text-xl font-bold"
                 >
+                  <SelectItem className="focus:bg-tertiary-accent focus:text-white" value={"ALL"}>Todos</SelectItem>
                   {independenceLevel.map(level => (
-                    <SelectItem key={level} className="focus:bg-tertiary-accent focus:text-white" value={level}>{level}</SelectItem>
+                    <SelectItem key={level} className="focus:bg-tertiary-accent focus:text-white" value={level}>{IndependenceLevel[level].name}</SelectItem>
                   ))}
                 </SelectContent>
               </Select>

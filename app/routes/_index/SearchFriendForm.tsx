@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod"
+import { Link } from "@remix-run/react"
 import { useForm } from "react-hook-form"
 import { Search } from "react-iconly"
 import { z } from "zod"
@@ -51,7 +52,6 @@ export function SearchFriendForm() {
                     className="bg-tertiary text-white font-sans text-xl font-bold"
                   >
                     <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="RS">RS</SelectItem>
-                    <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="SP">SP</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -77,7 +77,6 @@ export function SearchFriendForm() {
                     className="bg-tertiary text-white font-sans text-xl font-bold"
                   >
                     <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="Erechim">Erechim</SelectItem>
-                    <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="Florianopolis">Florianopolis</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -85,9 +84,9 @@ export function SearchFriendForm() {
             </FormItem>
           )}
         />
-        <Button className="bg-yellow-500 w-18 h-18 rounded-3xl hover:bg-yellow-600">
+        <Link className="bg-yellow-500 w-18 h-18 rounded-3xl hover:bg-yellow-600 flex items-center justify-center" to={'/search'}>
           <Search set="broken" stroke="bold" primaryColor="#0D3B66" secondaryColor="#0D3B66" />
-        </Button>
+        </Link>
 
       </form>
     </Form>

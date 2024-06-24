@@ -51,7 +51,6 @@ export function SearchFriendForm() {
                     className="bg-tertiary text-white font-sans text-xl font-bold"
                   >
                     <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="RS">RS</SelectItem>
-                    <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="SP">SP</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -77,7 +76,6 @@ export function SearchFriendForm() {
                     className="bg-tertiary text-white font-sans text-xl font-bold"
                   >
                     <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="Erechim">Erechim</SelectItem>
-                    <SelectItem className="focus:bg-tertiary-accent focus:text-white" value="Florianopolis">Florianopolis</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
